@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PEP-URG — Analogia de prontuário (legado × proposta)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Ir para o conteúdo</a>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <p class="kicker">Projeto Integrador · Arquitetura de Interação em Saúde</p>
+      <h1>Analogia de prontuário eletrônico de pronto-socorro</h1>
+      <p class="lede">
+        Artefato inspecionável, não um hospital real. Persona e dados clínicos são fictícios.
+        Não há coleta de áudio nem dado pessoal de titular (LGPD; sigilo médico). Serve para
+        aplicar heurística, walkthrough de interrupção e personalização por papel.
+      </p>
+      <p class="label">Entre com um papel clínico</p>
+      <div class="gate-actions">
+        <button type="button" data-role="medico">Entrar como médico plantonista</button>
+        <button type="button" class="secondary" data-role="enfermeiro">Entrar como enfermeiro</button>
+      </div>
+      <p class="hint">Os dois papéis veem o mesmo paciente. No legado, a interface quase não muda. Na proposta, ela se adapta.</p>
+    </div>
+  </div>
+
+  <header class="topbar" hidden>
+    <div class="brand">
+      <strong id="systemName">PEP-URG Legado</strong>
+      <span id="roleBadge" class="badge">Médico</span>
+    </div>
+    <div class="mode-switch" role="group" aria-label="Modo de interface">
+      <button type="button" id="btnLegacy" class="active">Sistema legado</button>
+      <button type="button" id="btnProposal">Proposta resiliente</button>
+    </div>
+    <div class="session">
+      <span id="clock">14:08</span>
+      <button type="button" id="btnLogout" class="ghost">Trocar papel</button>
+    </div>
+  </header>
+
+  <main id="main" hidden>
+    <section class="inspect-bar" aria-label="Controles de inspeção">
+      <button type="button" id="btnInterrupt">Simular interrupção</button>
+      <button type="button" id="btnVoice" hidden>Comando de voz</button>
+      <p id="inspectNote">Tema 3 · fluxos lineares não suportam interrupção da tarefa.</p>
+    </section>
+
+    <section id="patientBanner" class="banner" hidden>
+      <div>
+        <p class="muted">Paciente ativo · Sala 3 · Manchester laranja</p>
+        <h2>Maria Helena Costa · 67 anos · FEM</h2>
+      </div>
+      <ul class="chips">
+        <li class="danger">Alergia: DIPIRONA</li>
+        <li>HAS · DRC G3</li>
+        <li>NEWS2: 5</li>
+        <li id="draftChip" hidden>Rascunho de prescrição salvo</li>
+      </ul>
+    </section>
+
+    <div id="workspace"></div>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Título</h3>
+      <p id="modalBody">Corpo</p>
+      <div class="modal-actions">
+        <button type="button" id="modalCancel" class="ghost">Cancelar</button>
+        <button type="button" id="modalOk">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="interruptOverlay" class="interrupt" hidden>
+    <div>
+      <p class="kicker">Ação situada</p>
+      <h2>Interrupção: sala vermelha solicita o plantonista</h2>
+      <p>No legado, o fluxo linear descarta o que não foi “finalizado”. Na proposta, o rascunho permanece e pode ser retomado.</p>
+      <button type="button" id="btnReturn">Voltar ao prontuário</button>
+    </div>
+  </div>
+
+  <div id="voicePanel" class="voice" hidden>
+    <p><strong>Escuta multimodal</strong> — fale ou escolha um comando de demonstração</p>
+    <div class="voice-actions">
+      <button type="button" data-cmd="pa">“Registrar PA 80 por 50”</button>
+      <button type="button" data-cmd="rx">“Prescrever cloreto de potássio 10 mEq”</button>
+      <button type="button" data-cmd="med">“Administrar ondansetrona 8 mg EV”</button>
+    </div>
+    <p id="voiceStatus" class="muted">Aguardando comando…</p>
+    <button type="button" id="btnCloseVoice" class="ghost">Fechar</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
